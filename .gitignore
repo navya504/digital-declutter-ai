@@ -5,6 +5,9 @@
 __pycache__/
 *.py[cod]
 artifacts/
+dist/
+tools/
+.openai/
 datasets_v2/
 datasets/*/raw/
 datasets/*/splits/
