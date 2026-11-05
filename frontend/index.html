@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17294b"><meta name="description" content="Compare base and fine-tuned digital declutter model decisions on your labeled dataset.">
+  <title>Dataset Analysis &amp; Model Comparison — Digital Declutter AI</title>
+  <link rel="stylesheet" href="./styles.css?v=preview-matrix-random-20261106">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><b></b><em></em></span><div><strong>Digital Declutter AI</strong><small>Organize Today. A Lighter Tomorrow.</small></div></div>
+    <div class="top-actions"><span class="tagline">From Clutter to Clarity <span>✨</span></span><button class="icon-button" aria-label="Notifications">♧</button><span class="avatar">N</span><span class="user-name">Navya</span><span class="chevron">⌄</span></div>
+  </header>
+  <aside class="sidebar">
+    <nav aria-label="Main navigation">
+      <a href="#" class="nav-item active"><span>▤</span>Dataset Analysis</a>
+    </nav>
+  </aside>
+  <main class="main">
+    <section class="page-heading">
+      <div class="heading-icon">▤</div>
+      <div><h1>Dataset Analysis &amp; Model Comparison</h1><p>Upload your labeled dataset to compare base and fine-tuned cleanup decisions.</p></div>
+      <blockquote><b>“</b><span>Same data. Smarter decisions.<br>Fine-tuning makes the difference.</span><i></i></blockquote>
+    </section>
+
+    <section class="workflow" aria-label="Analysis workflow">
+      <div class="step"><b class="step-icon blue">⇧</b><span><strong><i>1</i> Upload Dataset</strong><small>CSV or Excel</small></span></div><b class="arrow">›</b>
+      <div class="step purple"><b class="step-icon">▣</b><span><strong><i>2</i> Run Base Model</strong><small>(Pre-trained)</small></span></div><b class="arrow">›</b>
+      <div class="step green"><b class="step-icon">♧</b><span><strong><i>3</i> Run Fine-Tuned Model</strong><small>(LoRA)</small></span></div><b class="arrow">›</b>
+      <div class="step red"><b class="step-icon">▥</b><span><strong><i>4</i> Evaluate &amp; Compare</strong><small>Metrics</small></span></div><b class="arrow">›</b>
+      <div class="step sky"><b class="step-icon">▤</b><span><strong><i>5</i> Get Insights</strong><small>&amp; Recommendations</small></span></div>
+    </section>
+
+    <section class="top-grid">
+      <article class="card upload-card">
+        <div class="card-title"><span class="cloud">☁</span><div><h2>Upload Your Dataset</h2><p>Upload a CSV or Excel file with your digital items<br>(emails, photos, files, subscriptions, etc.).</p></div></div>
+        <label class="dropzone" id="dropzone" for="dataset-file"><span class="upload-cloud">⇧</span><span>Drag &amp; drop your file here<br>or</span><b>Browse Files</b><small>CSV · XLSX · XLS</small></label>
+        <input id="dataset-file" type="file" accept=".csv,.xlsx,.xls" hidden>
+        <div class="file-row" id="file-row" hidden><span class="file-icon">▤</span><div><strong id="file-name"></strong><small id="file-size"></small></div><span class="check">✓</span><button id="remove-file" aria-label="Remove uploaded file">×</button></div>
+        <p class="formats">Required column: <code>item_text</code>. Add <code>actual_action</code> to calculate evaluation metrics.</p>
+        <div class="api-status" id="api-status"><span class="status-dot"></span><span>Checking model service…</span></div>
+        <button class="run-button" id="run-analysis" disabled><span>▶</span> Run Analysis</button>
+        <p class="notice">Recommendations require human review. Nothing is deleted automatically.</p>
+      </article>
+
+      <article class="card overview-card">
+        <div class="section-title"><span class="blue-icon">▤</span><h2>Dataset Overview</h2></div>
+        <div class="overview-content"><div class="record-count"><strong id="record-count">—</strong><span>Total Records</span></div><div class="overview-details"><p><b id="column-count">—</b><span>Columns</span></p><p><b id="class-count">—</b><span>Unique Classes</span></p><p><b id="dataset-type">Awaiting upload</b><span>Dataset Type</span></p></div></div>
+        <p class="overview-foot" id="overview-foot">Upload a dataset to see its structure.</p>
+      </article>
+
+      <article class="card model-card base-card">
+        <div class="model-heading"><span class="robot blue-robot">▣</span><div><h2>Base Model</h2><small id="base-model-name">Qwen2.5-3B-Instruct</small></div><span class="badge">Pre-trained</span></div>
+        <div class="metric-list"><div><span>◎ Accuracy</span><b id="base-accuracy">—</b></div><div><span>♧ Precision</span><b id="base-precision">—</b></div><div><span>♧ Recall</span><b id="base-recall">—</b></div><div><span>♙ F1 Score</span><b id="base-f1">—</b></div></div>
+      </article>
+
+      <article class="card model-card tuned-card">
+        <div class="model-heading"><span class="robot green-robot">♧</span><div><h2>Fine-Tuned Model</h2><small id="tuned-model-name">Qwen2.5-3B + LoRA</small></div><span class="badge green-badge" id="adapter-badge">LoRA</span></div>
+        <div class="metric-list green-metrics"><div><span>◎ Accuracy</span><b id="tuned-accuracy">—</b></div><div><span>♧ Precision</span><b id="tuned-precision">—</b></div><div><span>♧ Recall</span><b id="tuned-recall">—</b></div><div><span>♙ F1 Score</span><b id="tuned-f1">—</b></div></div>
+      </article>
+    </section>
+
+    <section class="middle-grid">
+      <article class="card performance-card">
+        <div class="section-title"><span class="blue-icon">▥</span><h2>Performance Comparison</h2><div class="legend"><span><i class="legend-blue"></i>Base Model</span><span><i class="legend-green"></i>Fine-Tuned Model</span></div></div>
+        <div class="chart-wrap" id="performance-chart"><div class="chart-empty">Metrics will appear here after a labeled dataset is evaluated.</div></div>
+      </article>
+      <article class="card impact-card">
+        <div class="section-title"><span class="trend-icon">⌁</span><h2>Fine-Tuning Impact</h2></div>
+        <div class="impact-stats"><div><b id="accuracy-gain">—</b><span>◎ Accuracy Gain</span></div><div><b id="precision-gain">—</b><span>▥ Precision Gain</span></div><div><b id="recall-gain">—</b><span>⌁ Recall Gain</span></div><div><b id="f1-gain">—</b><span>♜ F1 Score Gain</span></div></div>
+        <div class="insight" id="insight"><span>♜</span><div><strong>Awaiting model evaluation</strong><p>Run both models on a labeled dataset to see measured performance and recommendations.</p></div></div>
+      </article>
+    </section>
+
+    <section class="bottom-grid">
+      <article class="card matrix-card"><div class="section-title"><span class="blue-icon">▦</span><h2>Confusion Matrix - Base Model</h2></div><div class="matrix-empty" id="base-matrix">A labeled evaluation is required to calculate this matrix.</div></article>
+      <article class="card matrix-card"><div class="section-title"><span class="blue-icon">▦</span><h2>Confusion Matrix - Fine-Tuned Model</h2></div><div class="matrix-empty green-empty" id="tuned-matrix">A labeled evaluation is required to calculate this matrix.</div></article>
+      <article class="card predictions-card"><div class="section-title"><span class="blue-icon">▤</span><h2>All Predictions</h2><span class="result-count" id="prediction-count"></span></div><div class="table-scroll"><table><thead><tr><th>#</th><th>Item Details</th><th>Actual</th><th>Base Model</th><th>Fine-Tuned</th><th>Result</th></tr></thead><tbody id="prediction-rows"><tr><td colspan="6" class="empty-row">Predictions will appear here after the models run.</td></tr></tbody></table></div><div class="table-foot" id="table-foot">No analysis results yet.</div></article>
+    </section>
+    <footer>Digital Declutter AI <span>|</span> Clean Data. Clear Mind. <span>|</span> Built with <b>♥</b> for a smarter tomorrow.<small>Qwen2.5 · LoRA Fine-Tuning · Live evaluation</small></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js?v=preview-matrix-random-20261106"></script>
+</body>
+</html>

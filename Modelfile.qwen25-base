@@ -1,0 +1,2 @@
+FROM ./artifacts/qwen25-base-f16.gguf
+PARAMETER temperature 0

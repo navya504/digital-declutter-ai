@@ -1,0 +1,2 @@
+FROM ./artifacts/ollama-qwen25-05b-merged-fixed-f16.gguf
+PARAMETER temperature 0

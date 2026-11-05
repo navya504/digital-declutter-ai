@@ -1,0 +1,5 @@
+# Subscription dataset
+
+This domain has its own `raw/`, `curated/`, and `splits/` directories. The generator writes synthetic examples to `raw/`. Human-review and approve examples before placing them in `curated/` for fine-tuning.
+
+Fields: `id`, `domain`, `item_text`, `actual_action`, `reason`, `synthetic`. In this five-action taxonomy, cancellation advice uses UNSUBSCRIBE; the reason retains the subscription context.

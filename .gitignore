@@ -1,0 +1,16 @@
+.venv/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+artifacts/
+datasets_v2/
+datasets/*/raw/
+datasets/*/splits/
+mocks/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.log
